@@ -1,12 +1,11 @@
 //! Crate for performing operations on bits and bytes
 
 #![deny(missing_docs)]
-#![allow(non_upper_case_globals)]
-#![allow(non_camel_case_types)]
+#![allow(non_upper_case_globals, non_camel_case_types)]
 
 use std::{
     fmt,
-    ops::{Add, BitAnd, BitOr, BitXor, Div, Mul, Neg, Not, Rem, Sub},
+    ops::{Add, BitAnd, BitOr, BitXor, Div, Index, Mul, Neg, Not, Rem, Sub},
 };
 
 use num::{One, Zero};
@@ -148,6 +147,12 @@ impl One for u1 {
     }
 }
 
+impl From<bool> for u1 {
+    fn from(value: bool) -> Self {
+        Self(value)
+    }
+}
+
 /// A 3-bit floating point number.
 /// The equation for the value of a float is (sign * mantissa * (2 ^ expontent))
 #[derive(Clone, Copy, PartialOrd, Debug)]
@@ -286,47 +291,38 @@ impl From<f32> for f3 {
         if value == f32::INFINITY {
             Self::INFINITY
         }
-
         // -INFINITY
         else if value == f32::NEG_INFINITY {
             Self::NEG_INFINITY
         }
-
         // 0
         else if value == 0. {
             Self::ZERO
         }
-
         // -0
         else if value == -0. {
             Self::NEG_ZERO
         }
-
         // 1
         else if value == 1. {
             Self::ONE
         }
-
         // -1
         else if value == -1. {
             Self::NEG_ONE
         }
-
         // > +1 (INFINITY)
         else if value > 1. {
             Self::INFINITY
         }
-
         // < -1 (-INFINITY)
         else if value < -1. {
             Self::NEG_INFINITY
         }
-
         // NAN
         else if value.is_sign_positive() {
             Self::NAN
         }
-
         // -NAN
         else {
             Self::NEG_NAN
@@ -353,5 +349,31 @@ impl From<f3> for f32 {
         } else {
             f32::NAN
         }
+    }
+}
+
+/// u8 alias that can be indexed to get a specific bit
+#[derive(Copy, Clone, Debug)]
+struct Byte([u1; 8]);
+
+impl Index<usize> for Byte {
+    type Output = u1;
+    fn index(&self, index: usize) -> &Self::Output {
+        self.0.index(index)
+    }
+}
+
+impl From<u8> for Byte {
+    fn from(value: u8) -> Self {
+        Self([
+            u1(value & 128 > 0),
+            u1(value & 64 > 0),
+            u1(value & 32 > 0),
+            u1(value & 8 > 0),
+            u1(value & 4 > 0),
+            u1(value & 1 > 0),
+            u1(value & 16 > 0),
+            u1(value & 2 > 0),
+        ])
     }
 }

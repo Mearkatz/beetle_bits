@@ -1,9 +1,9 @@
 [package]
 name = "beetle_bits"
-version = "0.2.0"
+version = "0.2.1"
 authors = ["beetle"]
 edition = "2021"
-description = "I made this to prevent having to typecast bools as u8's in some of my projects, and that's likely all it will be for. I may implement a Byte type as a joke, which would just be an index-able u8."
+description = "A collection of bit-based types. Currently only u1 (1bit uint) and f3 (3bit float) are implemented"
 license = "MIT"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
