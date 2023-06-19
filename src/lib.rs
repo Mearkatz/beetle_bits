@@ -3,8 +3,8 @@
 #![deny(missing_docs, clippy::needless_bool)]
 #![allow(non_upper_case_globals, non_camel_case_types)]
 
-mod f3;
-mod u1;
+pub mod f3;
+pub mod u1;
 
 mod byte {
     use crate::{u1::u1, AsBits};

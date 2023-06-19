@@ -1,3 +1,5 @@
+//! Everything related to the f3 struct
+
 use std::ops::{Add, Div, Mul, Neg, Rem, Sub};
 
 use num::{One, Zero};

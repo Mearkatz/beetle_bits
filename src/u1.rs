@@ -1,3 +1,5 @@
+//! Everything related to the u1 struct
+
 use std::{
     fmt,
     ops::{Add, BitAnd, BitOr, BitXor, Div, Mul, Not, Rem, Sub},
@@ -9,7 +11,10 @@ use num::{One, Zero};
 /// Unsigned 1-bit Integer
 pub struct u1(pub bool);
 
+/// A u1 representing zero
 pub const b0: u1 = u1(false);
+
+/// A u1 representing one
 pub const b1: u1 = u1(true);
 
 impl fmt::Display for u1 {
