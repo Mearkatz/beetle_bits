@@ -1,6 +1,6 @@
 [package]
 name = "beetle_bits"
-version = "0.2.3"
+version = "0.2.4"
 authors = ["beetle"]
 edition = "2021"
 description = "A collection of bit-based types. Currently only u1 (1bit uint) and f3 (3bit float) are implemented"
