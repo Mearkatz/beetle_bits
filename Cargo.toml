@@ -5,7 +5,7 @@ authors = ["beetle"]
 edition = "2021"
 description = "A collection of bit-based types. Currently only u1 (1bit uint) and f3 (3bit float) are implemented"
 license = "MIT"
-repository = "https://github.com/Mearkatz/bit_types"
+repository = "https://github.com/Mearkatz/bit-types"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
