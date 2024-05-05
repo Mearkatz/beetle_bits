@@ -126,7 +126,7 @@ impl Ord for u1 {
 
 impl PartialOrd for u1 {
     fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering> {
-        self.0.partial_cmp(&other.0)
+        Some(self.cmp(other))
     }
 }
 
@@ -149,5 +149,65 @@ impl One for u1 {
 impl From<bool> for u1 {
     fn from(value: bool) -> Self {
         Self(value)
+    }
+}
+
+impl From<u1> for u8 {
+    fn from(value: u1) -> Self {
+        value.0.into()
+    }
+}
+
+impl From<u1> for u16 {
+    fn from(value: u1) -> Self {
+        value.0.into()
+    }
+}
+
+impl From<u1> for u32 {
+    fn from(value: u1) -> Self {
+        value.0.into()
+    }
+}
+
+impl From<u1> for u64 {
+    fn from(value: u1) -> Self {
+        value.0.into()
+    }
+}
+
+impl From<u1> for u128 {
+    fn from(value: u1) -> Self {
+        value.0.into()
+    }
+}
+
+impl From<u1> for i8 {
+    fn from(value: u1) -> Self {
+        value.0.into()
+    }
+}
+
+impl From<u1> for i16 {
+    fn from(value: u1) -> Self {
+        value.0.into()
+    }
+}
+
+impl From<u1> for i32 {
+    fn from(value: u1) -> Self {
+        value.0.into()
+    }
+}
+
+impl From<u1> for i64 {
+    fn from(value: u1) -> Self {
+        value.0.into()
+    }
+}
+
+impl From<u1> for i128 {
+    fn from(value: u1) -> Self {
+        value.0.into()
     }
 }
