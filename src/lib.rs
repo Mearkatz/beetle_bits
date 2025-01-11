@@ -6,56 +6,26 @@
 pub mod f3;
 pub mod u1;
 
-mod byte {
-    use crate::{u1::u1, AsBits};
-    use std::ops::Index;
-    /// u8 alias that can be indexed to get a specific bit
-    #[derive(Copy, Clone, Debug)]
-    struct Byte([u1; 8]);
-
-    impl Index<usize> for Byte {
-        type Output = u1;
-        fn index(&self, index: usize) -> &Self::Output {
-            self.0.index(index)
-        }
-    }
-
-    impl From<u8> for Byte {
-        fn from(value: u8) -> Self {
-            Self(value.as_bits())
-        }
-    }
+/// Returns the bits that make up a `u8`
+pub fn bits_of_u8(n: u8) -> [u1::u1; 8] {
+    std::array::from_fn(|i| u1::u1(n & 1 << i > 0))
 }
 
-/// Gives access to a function that returns the bits of a number
-pub trait AsBits {
-    /// The number of bits necessary to represent this type        
-    const BITS_TO_REPR: usize;
-
-    /// MUST BE `type R = [u1; Self::R]`
-    ///
-    /// Sadly there isn't a nicer way to do this that I'm aware of :/
-    type R;
-
-    /// Returns the bits that make up `self`
-    fn as_bits(&self) -> Self::R;
+/// Returns a byte (`u8`) constructed from bits (`u1`s)
+pub fn u8_from_bits(bits: [u1::u1; 8]) -> u8 {
+    bits.into_iter()
+        .map(u8::from)
+        .enumerate()
+        .map(|(i, n)| n << i)
+        .sum()
 }
 
-impl AsBits for u8 {
-    const BITS_TO_REPR: usize = 8;
+// Returns `num` with its `n`'th bit set to one
+fn set_nth_bit(num: u8, n: u8) -> u8 {
+    num | 1 << n
+}
 
-    type R = [crate::u1::u1; Self::BITS_TO_REPR];
-
-    fn as_bits(&self) -> Self::R {
-        [
-            u1::u1(self & 128 > 0),
-            u1::u1(self & 64 > 0),
-            u1::u1(self & 32 > 0),
-            u1::u1(self & 16 > 0),
-            u1::u1(self & 8 > 0),
-            u1::u1(self & 4 > 0),
-            u1::u1(self & 2 > 0),
-            u1::u1(self & 1 > 0),
-        ]
-    }
+#[test]
+fn set_nth_bit_works() {
+    assert_eq!(set_nth_bit(0, 7), 255);
 }

@@ -5,10 +5,10 @@ use std::{
     ops::{Add, BitAnd, BitOr, BitXor, Div, Mul, Not, Rem, Sub},
 };
 
-use num::{One, Zero};
+use num_traits::{One, Zero};
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-/// Unsigned 1-bit Integer
+/// Unsigned 1-bit Integer (a bit)
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
 pub struct u1(pub bool);
 
 /// A u1 representing zero
@@ -109,7 +109,6 @@ impl Rem for u1 {
     type Output = Self;
 
     fn rem(self, rhs: Self) -> Self::Output {
-        // if let (b0, b0) | (b1, b0) = (self, rhs) {
         if rhs.is_zero() {
             panic!("Attempt to modulo a u1 by zero, which is undefined")
         } else {
@@ -132,7 +131,7 @@ impl PartialOrd for u1 {
 
 impl Zero for u1 {
     fn zero() -> Self {
-        Self(false)
+        b0
     }
 
     fn is_zero(&self) -> bool {
@@ -142,7 +141,7 @@ impl Zero for u1 {
 
 impl One for u1 {
     fn one() -> Self {
-        Self(true)
+        b1
     }
 }
 
@@ -182,6 +181,12 @@ impl From<u1> for u128 {
     }
 }
 
+impl From<u1> for usize {
+    fn from(value: u1) -> Self {
+        value.0.into()
+    }
+}
+
 impl From<u1> for i8 {
     fn from(value: u1) -> Self {
         value.0.into()
@@ -207,6 +212,12 @@ impl From<u1> for i64 {
 }
 
 impl From<u1> for i128 {
+    fn from(value: u1) -> Self {
+        value.0.into()
+    }
+}
+
+impl From<u1> for isize {
     fn from(value: u1) -> Self {
         value.0.into()
     }

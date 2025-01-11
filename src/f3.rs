@@ -2,7 +2,7 @@
 
 use std::ops::{Add, Div, Mul, Neg, Rem, Sub};
 
-use num::{One, Zero};
+use num_traits::{One, Zero};
 
 use crate::u1::{b0, b1, u1};
 
