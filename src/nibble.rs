@@ -7,7 +7,7 @@ use std::{
 
 /// Half a byte, or 4 Bits.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub struct Nibble(pub [Bit; 4]);
+pub struct Nibble([Bit; 4]);
 
 impl From<Nibble> for i8 {
     fn from(value: Nibble) -> Self {
@@ -35,6 +35,11 @@ impl Display for Nibble {
 }
 
 impl Nibble {
+    /// Returns the four bits of the `Nibble`.
+    pub fn bits(&self) -> [Bit; 4] {
+        self.0
+    }
+
     /**
     Bitwise addition of two nibbles.
     I'm pretty sure this is unsigned addition.
