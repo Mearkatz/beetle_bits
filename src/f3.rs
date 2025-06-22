@@ -4,34 +4,34 @@ use std::ops::{Add, Div, Mul, Neg, Rem, Sub};
 
 use num_traits::{One, Zero};
 
-use crate::u1::{b0, b1, u1};
+use crate::bit::Bit::{self};
 
 /// A 3-bit floating point number.
 /// The equation for the value of a float is (sign * mantissa * (2 ^ expontent))
 #[derive(Clone, Copy, PartialOrd, Debug)]
 pub struct f3 {
     /// Denotes whether the number is positive (0 means positive, 1 means negative)
-    sign: u1,
+    sign: Bit,
 
     /// Modifies the magnitude of the number
-    exponent: u1,
+    exponent: Bit,
 
     /// Fractional part of the float
-    mantissa: u1,
+    mantissa: Bit,
 }
 
 impl f3 {
     // CONSTANTS
-    const ZERO: Self = Self::new(b0, b0, b0);
-    const ONE: Self = Self::new(b0, b0, b1);
-    const INFINITY: Self = Self::new(b0, b1, b0);
-    const NAN: Self = Self::new(b0, b1, b1);
-    const NEG_ZERO: Self = Self::new(b1, b0, b0);
-    const NEG_ONE: Self = Self::new(b1, b0, b1);
-    const NEG_INFINITY: Self = Self::new(b1, b1, b0);
-    const NEG_NAN: Self = Self::new(b1, b1, b1);
+    const ZERO: Self = Self::new(Bit::Zero, Bit::Zero, Bit::Zero);
+    const ONE: Self = Self::new(Bit::Zero, Bit::Zero, Bit::One);
+    const INFINITY: Self = Self::new(Bit::Zero, Bit::One, Bit::Zero);
+    const NAN: Self = Self::new(Bit::Zero, Bit::One, Bit::One);
+    const NEG_ZERO: Self = Self::new(Bit::One, Bit::Zero, Bit::Zero);
+    const NEG_ONE: Self = Self::new(Bit::One, Bit::Zero, Bit::One);
+    const NEG_INFINITY: Self = Self::new(Bit::One, Bit::One, Bit::Zero);
+    const NEG_NAN: Self = Self::new(Bit::One, Bit::One, Bit::One);
 
-    const fn new(sign: u1, exponent: u1, mantissa: u1) -> Self {
+    const fn new(sign: Bit, exponent: Bit, mantissa: Bit) -> Self {
         Self {
             sign,
             exponent,
@@ -82,9 +82,9 @@ impl Rem for f3 {
 impl One for f3 {
     fn one() -> Self {
         Self {
-            sign: b0,
-            exponent: b0,
-            mantissa: b1,
+            sign: Bit::Zero,
+            exponent: Bit::Zero,
+            mantissa: Bit::One,
         }
     }
 }
