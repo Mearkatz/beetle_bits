@@ -49,6 +49,11 @@ impl Bit {
         !(self & other)
     }
 
+    /// Returns 1 if `self` and `other` are both 0.
+    pub fn nor(self, other: Self) -> Self {
+        !(self | other)
+    }
+
     /// Adds two bits, with a carry-in and a carry-out bit.
     /// This allows adds to be chained together without panicking.
     pub fn add(self, other: Self, carry_in: Self) -> (Self, Self) {
@@ -154,4 +159,6 @@ macro_rules! impl_from_bit_for_primint {
     };
 }
 
-impl_from_bit_for_primint!(u8, u16, u32, u64, u128, usize, i8, i16, i32, i64, i128, isize);
+impl_from_bit_for_primint!(
+    u8, u16, u32, u64, u128, usize, i8, i16, i32, i64, i128, isize
+);
