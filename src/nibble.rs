@@ -7,7 +7,7 @@ use std::{
 
 /// Half a byte, or 4 Bits.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub struct Nibble([Bit; 4]);
+pub struct Nibble(pub [Bit; 4]);
 
 impl From<Nibble> for i8 {
     fn from(value: Nibble) -> Self {
